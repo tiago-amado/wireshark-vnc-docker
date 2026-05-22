@@ -21,5 +21,14 @@ RUN echo "wireshark-common wireshark-common/install-setuid boolean false" | debc
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/cshargextcap.deb
 
+# Install ANYsec Packet Dissectors for Wireshark
+RUN apt-get install -y git && \
+    git clone https://github.com/xavixava/anysec-dissectors.git /tmp/anysec-dissectors && \
+    mkdir -p /usr/lib64/wireshark/plugins && \
+    cp -r /tmp/anysec-dissectors/4.4_anysec_plugins /usr/lib64/wireshark/plugins/ && \
+    chmod -R 755 /usr/lib64/wireshark/plugins/4.4_anysec_plugins && \
+    rm -rf /tmp/anysec-dissectors
+
+
 COPY startapp.sh /startapp.sh
 RUN chmod +x /startapp.sh
