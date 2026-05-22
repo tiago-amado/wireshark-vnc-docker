@@ -8,10 +8,31 @@ ENV DEBIAN_FRONTEND=noninteractive \
     APP_NAME="Wireshark" \
     WIRESHARK_RUN_DUMPCAP_AS_ROOT=1
 
-# ----------------------------
-# UI / noVNC tweak
-# ----------------------------
-RUN sed -i "s/UI.initSetting('resize', resize);/UI.initSetting('resize', 'remote');/g" /opt/noVNC/app/ui.js
+# --------------------------------------------------
+# noVNC resize fix
+# --------------------------------------------------
+RUN sed -i "s/UI.initSetting('resize', resize);/UI.initSetting('resize', 'remote');/g" \
+    /opt/noVNC/app/ui.js
+
+# --------------------------------------------------
+# Preseed Wireshark install
+# --------------------------------------------------
+RUN echo "wireshark-common wireshark-common/install-setuid boolean false" | debconf-set-selections
+
+# --------------------------------------------------
+# Install Wireshark + tools
+# Debian 13 has Wireshark 4.4 packages
+# --------------------------------------------------
+RUN mkdir -p /var/log && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        wireshark \
+        curl \
+        jq \
+        git \
+        ca-certificates && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 
 # ----------------------------
