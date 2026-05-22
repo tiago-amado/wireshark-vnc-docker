@@ -25,13 +25,16 @@ RUN echo "wireshark-common wireshark-common/install-setuid boolean false" | debc
 # --------------------------------------------------
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        wireshark \
+        wireshark-common \
+        wireshark-cli \
+        tshark \
         curl \
         jq \
         git \
         ca-certificates && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
 
 
 # ----------------------------
