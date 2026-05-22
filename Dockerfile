@@ -23,8 +23,7 @@ RUN echo "wireshark-common wireshark-common/install-setuid boolean false" | debc
 # Install Wireshark + tools
 # Debian 13 has Wireshark 4.4 packages
 # --------------------------------------------------
-RUN mkdir -p /var/log && \
-    apt-get update && \
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         wireshark \
         curl \
