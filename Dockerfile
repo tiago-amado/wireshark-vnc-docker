@@ -1,4 +1,4 @@
-FROM jlesage/baseimage-gui:debian-13-v4.12
+FROM jlesage/baseimage-gui:debian-13-v4.2
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DISPLAY=:1 \
@@ -18,6 +18,13 @@ RUN sed -i "s/UI.initSetting('resize', resize);/UI.initSetting('resize', 'remote
 # Preseed Wireshark install
 # --------------------------------------------------
 RUN echo "wireshark-common wireshark-common/install-setuid boolean false" | debconf-set-selections
+
+RUN echo "=== USERS ===" && \
+    getent passwd root && \
+    getent group root && \
+    echo "=== LOG DIR ===" && \
+    ls -ld /var/log && \
+    whoami
 
 # --------------------------------------------------
 # Install Wireshark + tools
