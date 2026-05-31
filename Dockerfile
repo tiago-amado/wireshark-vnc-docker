@@ -1,4 +1,4 @@
-FROM jlesage/baseimage-gui:debian-13-v4.2
+FROM jlesage/baseimage-gui:debian-13-v4.12.2
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DISPLAY=:1 \
