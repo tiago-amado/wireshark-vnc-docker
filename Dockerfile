@@ -1,4 +1,4 @@
-FROM jlesage/baseimage-gui:debian-13-v4
+FROM jlesage/baseimage-gui:debian-13-v4.12
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DISPLAY=:1 \
@@ -26,7 +26,7 @@ RUN echo "wireshark-common wireshark-common/install-setuid boolean false" | debc
 # Preseed wireshark debconf and install dependencies in one layer
 RUN echo "wireshark-common wireshark-common/install-setuid boolean false" | debconf-set-selections && \
     apt-get update && \
-    apt-get install -y --no-install-recommends wireshark 
+    apt-get install -y --no-install-recommends wireshark \
 
 
 
